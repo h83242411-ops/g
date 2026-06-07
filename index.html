@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ألف مبروك التخرج!</title>
+    <!-- استدعاء خطوط Google Font وأيقونات FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: #f0f4f8;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* حاوية الظرف والبطاقة */
+        .envelope-wrapper {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .envelope-wrapper:hover {
+            transform: scale(1.03);
+        }
+
+        /* جسم الظرف */
+        .envelope {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background-color: #d4a373;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            z-index: 2;
+        }
+
+        /* الغطاء العلوي للظرف */
+        .envelope::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            z-index: 4;
+            border-top: 110px solid #c69465;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            transform-origin: top;
+            transition: transform 0.4s ease 0.2s;
+        }
+
+        /* الأجنحة الجانبية للظرف لمنع رؤية البطاقة من الجوانب */
+        .envelope::after {
+            content: "";
+            position: absolute;
+            z-index: 3;
+            bottom: 0;
+            border-bottom: 200px solid #d4a373;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            pointer-events: none;
+        }
+
+        /* بطاقة التهنئة */
+        .card {
+            position: absolute;
+            left: 15px;
+            bottom: 10px;
+            width: 270px;
+            height: 180px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            z-index: 1;
+            transition: transform 0.5s ease, z-index 0s ease 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* لوغو طبيبة الأسنان */
+        .dentist-logo {
+            font-size: 40px;
+            color: #06d6a0;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .dentist-logo .fa-stethoscope {
+            position: absolute;
+            font-size: 20px;
+            color: #118ab2;
+            bottom: -5px;
+            right: -5px;
+        }
+
+        /* نص التهنئة داخل البطاقة */
+        .card p {
+            font-size: 14px;
+            color: #333333;
+            line-height: 1.6;
+            font-weight: 700;
+        }
+
+        /* توقيع أسفل الظرف */
+        .signature {
+            margin-top: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #4a5568;
+            transition: opacity 0.3s ease;
+        }
+
+        /* تأثيرات الأنميشن عند فتح الظرف (تفعيل عبر الكلاس open) */
+        .envelope-wrapper.open .envelope::before {
+            transform: rotateX(180deg);
+            z-index: 0;
+        }
+
+        .envelope-wrapper.open .card {
+            transform: translateY(-130px);
+            z-index: 5;
+            height: auto;
+            min-height: 220px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .envelope-wrapper.open .signature {
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الحاوية الرئيسية -->
+    <div class="envelope-wrapper" id="envelopeWrapper" onclick="openEnvelope()">
+        
+        <!-- بطاقة التهنئة (تكون بالخلف وتخرج للأعلى) -->
+        <div class="card">
+            <!-- لوغو الأسنان -->
+            <div class="dentist-logo">
+                <i class="fa-solid fa-tooth"></i>
+                <i class="fa-solid fa-stethoscope"></i>
+            </div>
+            <!-- نص التهنئة -->
+            <p>اختي وحبيبتي الف مبروك يا احلا طبيبه الحمد لله الي اجت اللحظه وشفتج بيها باعلى المراتب واني فخوره بيج</p>
+        </div>
+
+        <!-- جسم الظرف -->
+        <div class="envelope"></div>
+
+    </div>
+
+    <!-- الكتابة أسفل الظرف -->
+    <div class="signature" id="signatureText">من صديقتج مريم</div>
+
+    <script>
+        function openEnvelope() {
+            const wrapper = document.getElementById('envelopeWrapper');
+            // تبديل الكلاس لفتح أو غلق الظرف عند الضغط
+            wrapper.classList.toggle('open');
+        }
+    </script>
+
+</body>
+</html>
